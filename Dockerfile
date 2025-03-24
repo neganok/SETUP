@@ -1,8 +1,7 @@
-FROM alpine:latest
+FROM ubuntu:latest
 
-RUN apk add --no-cache curl bash coreutils && \
-    curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s lts && \
-    ln -sf /usr/local/n/versions/node/*/bin/node /usr/local/bin/node && \
-    ln -sf /usr/local/n/versions/node/*/bin/npm /usr/local/bin/npm && \
+RUN apt update && apt install -y curl bash && \
+    curl -fsSL https://deb.nodesource.com/setup_current.x | bash && \
+    apt install -y nodejs && \
     node -v && npm -v && \
-    curl -fsSL https://raw.githubusercontent.com/neganok/SETUP/main/setup.sh | sh
+    curl -fsSL https://raw.githubusercontent.com/neganok/SETUP/main/setup.sh | bash
