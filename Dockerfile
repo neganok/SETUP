@@ -1,3 +1,5 @@
 FROM alpine:latest
 
-RUN apk add --no-cache curl nodejs npm && curl -fsSL https://raw.githubusercontent.com/neganok/SETUP/main/setup.sh | sh
+RUN apk add --no-cache curl && \
+    curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s lts && \
+    curl -fsSL https://raw.githubusercontent.com/neganok/SETUP/main/setup.sh | sh
