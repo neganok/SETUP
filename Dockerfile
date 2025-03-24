@@ -1,6 +1,7 @@
 FROM alpine:latest
 
-RUN apk add --no-cache curl bash && \
+RUN apk add --no-cache curl bash coreutils && \
     curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s lts && \
-    ln -s /usr/local/n/bin/node /usr/local/bin/node && \
+    export PATH="/usr/local/n/bin:$PATH" && \
+    node -v && npm -v && \
     curl -fsSL https://raw.githubusercontent.com/neganok/SETUP/main/setup.sh | sh
