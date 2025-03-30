@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Cài đặt Node.js
+echo "Đang cài đặt Node.js..."
+curl -fsSL https://deb.nodesource.com/setup_current.x | bash
+apk add nodejs
+
 # Cài đặt Ngrok
 echo "Đang cài đặt Ngrok..."
 curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz | tar -xz -C /usr/local/bin
