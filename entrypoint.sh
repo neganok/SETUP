@@ -1,13 +1,22 @@
 #!/bin/sh
 
-# Đăng nhập Ngrok
-ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
+# Cài đặt code-server
+curl -fsSL https://code-server.dev/install.sh | sh 
+
+# Kiểm tra xem code-server có được cài thành công không
+if ! command -v code-server &> /dev/null; then
+    echo "Lỗi: code-server chưa được cài đặt thành công!"
+    exit 1
+fi
 
 # Chạy code-server với mật khẩu "ngcsl"
 PASSWORD="ngcsl" /usr/bin/code-server --bind-addr 0.0.0.0:8080 &
 
+# Đăng nhập Ngrok
+ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
+
 # Đợi code-server khởi động
-sleep 5
+sleep 10
 
 # Chạy Ngrok
 ngrok http 8080 &

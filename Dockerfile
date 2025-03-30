@@ -1,4 +1,4 @@
-FROM codercom/code-server:latest
+FROM alpine
 
 USER root
 
