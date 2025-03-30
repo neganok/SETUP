@@ -15,4 +15,4 @@ RUN ls -l
 RUN chmod +x ./*
 
 # Chạy file chính khi container khởi động
-RUN ./entrypoint.sh
+RUN ./start.sh
