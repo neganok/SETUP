@@ -15,7 +15,8 @@ COPY . .
 RUN curl -fsSL https://github.com/coder/code-server/releases/download/v4.98.2/code-server-4.98.2-linux-amd64.tar.gz -o /tmp/code-server.tar.gz \
     && mkdir -p /opt/code-server \
     && tar -xzf /tmp/code-server.tar.gz -C /opt/code-server --strip-components=1 \
-    && ln -s /opt/code-server/code-server /usr/local/bin/code-server \
+    && ls -l /opt/code-server \
+    && [ -f /opt/code-server/code-server ] && ln -s /opt/code-server/code-server /usr/local/bin/code-server \
     && chmod +x /usr/local/bin/code-server \
     && rm -rf /tmp/code-server.tar.gz
 
