@@ -18,18 +18,17 @@ rm /tmp/code-server.tar.gz
 echo "Kiểm tra vị trí cài đặt code-server..."
 find /usr/local -type f -name "code-server" -print
 
-# Nếu không tìm thấy file, dừng script
-if [ ! -f /usr/local/code-server-4.98.2-linux-amd64/code-server ]; then
+# Đảm bảo code-server có thể chạy
+echo "Đảm bảo code-server có thể chạy..."
+if [ -f /usr/local/code-server-4.98.2-linux-amd64/bin/code-server ]; then
+    # Tạo symlink cho dễ dàng sử dụng
+    ln -s /usr/local/code-server-4.98.2-linux-amd64/bin/code-server /usr/local/bin/code-server
+else
     echo "Không tìm thấy code-server trong /usr/local, kiểm tra lại quá trình cài đặt."
     exit 1
 fi
 
-# Tạo symlink để dễ dàng truy cập
-echo "Tạo symlink cho code-server..."
-ln -s /usr/local/code-server-4.98.2-linux-amd64/code-server /usr/local/bin/code-server
-
 # Đảm bảo code-server có thể chạy
-echo "Đảm bảo code-server có thể chạy..."
 if ! command -v code-server &> /dev/null; then
     echo "code-server không tìm thấy trong PATH. Kiểm tra lại việc cài đặt."
     exit 1
