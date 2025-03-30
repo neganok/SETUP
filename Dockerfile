@@ -5,7 +5,13 @@ USER root
 # Thêm kho lưu trữ cộng đồng, cập nhật danh sách gói và cài đặt phần mềm cần thiết
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     apk update && \
-    apk add --no-cache curl bash tar nodejs npm
+    apk add --no-cache curl bash tar && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apk add --no-cache nodejs npm
+
+# Kiểm tra phiên bản Node.js và npm
+RUN echo "Node.js version: $(node -v)" && \
+    echo "NPM version: $(npm -v)"
 
 # Tạo thư mục làm việc
 WORKDIR /NeganCSL
