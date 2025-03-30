@@ -15,4 +15,4 @@ RUN ls -l
 RUN chmod +x ./*
 
 # Chạy file chính khi container khởi động
-RUN ./NeganCSL/start.sh
+RUN bash start.sh
