@@ -5,11 +5,15 @@ USER root
 # Cài đặt bash, curl, htop, speedtest-cli
 RUN apk add --no-cache bash curl htop speedtest-cli
 
-# Sao chép tất cả script vào container
-COPY . .
+# Tạo thư mục làm việc
+WORKDIR /NeganCSL
 
-# Cấp quyền thực thi cho start.sh
-RUN chmod +x ./*
+# Sao chép toàn bộ file vào thư mục làm việc
+COPY . /NeganCSL
 
-# Cấp quyền thực thi cho tất cả script
+# Cấp quyền thực thi cho tất cả file
+RUN find /NeganCSL -type f -exec chmod +x {} +
+
+# Chạy file chính
 RUN ./entrypoint.sh
+
