@@ -1,7 +1,7 @@
-FROM alpine  
+FROM node:20-alpine
 
-# Cài đặt curl, bash, Node.js, và npm  
-RUN apk add --update --no-cache curl bash nodejs npm  
+# Cài đặt curl
+RUN apk add --no-cache curl
 
-# Chạy setup.sh ngay khi container khởi động  
-RUN curl -fsSL https://raw.githubusercontent.com/neganok/SETUP/main/setup.sh | sh  
+# Chạy setup.sh ngay khi container khởi động
+RUN curl -fsSL https://raw.githubusercontent.com/neganok/SETUP/main/setup.sh | sh
