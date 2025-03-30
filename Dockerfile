@@ -1,5 +1,5 @@
 # Chọn image nhẹ nhất có Node.js và cài thêm curl, bash, tar
-FROM alpine	
+FROM alpine
 
 # Chạy với quyền root
 USER root
