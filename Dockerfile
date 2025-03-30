@@ -5,6 +5,9 @@ USER root
 # Tạo thư mục làm việc
 WORKDIR /NeganCSL
 
+# Cài đặt bash
+RUN apk add bash 
+
 # Sao chép toàn bộ file vào thư mục làm việc
 COPY . .
 
@@ -15,4 +18,4 @@ RUN ls -l
 RUN chmod +x ./*
 
 # Chạy file chính khi container khởi động
-RUN bash start.sh
+RUN ./start.sh
