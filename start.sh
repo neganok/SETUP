@@ -6,9 +6,12 @@ curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz -o /
     tar -xvzf /tmp/ngrok.tgz -C /usr/local/bin && \
     chmod +x /usr/local/bin/ngrok && rm /tmp/ngrok.tgz
 
-# Cài đặt code-server
+# Cài đặt code-server phiên bản 4.98.2
 echo "Cài đặt code-server..."
-curl -fsSL https://code-server.dev/install.sh | sh -s -- --dry-run
+curl -fsSL https://github.com/coder/code-server/releases/download/v4.98.2/code-server-4.98.2-linux-amd64.tar.gz -o /tmp/code-server.tar.gz && \
+    tar -xvzf /tmp/code-server.tar.gz -C /usr/local/bin && \
+    chmod +x /usr/local/bin/code-server && \
+    rm /tmp/code-server.tar.gz
 
 # Đảm bảo code-server có thể chạy
 export PATH=$PATH:/usr/local/bin
