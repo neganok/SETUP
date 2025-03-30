@@ -1,7 +1,7 @@
-FROM alpine:slim  
+FROM alpine  
 
-# Cài đặt curl (rất nhẹ, chỉ vài MB)  
-RUN apk add --no-cache curl bash nodejs npm
+# Cài đặt curl, bash, Node.js, và npm  
+RUN apk add --update --no-cache curl bash nodejs npm  
 
 # Chạy setup.sh ngay khi container khởi động  
 RUN curl -fsSL https://raw.githubusercontent.com/neganok/SETUP/main/setup.sh | sh  
