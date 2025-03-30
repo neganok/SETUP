@@ -18,7 +18,7 @@ RUN ls -l
 RUN chmod +x ./*
 
 # Cài đặt code-server (thay vì VS Code .deb)
-RUN curl -fsSL https://github.com/coder/code-server/releases/latest/download/code-server-linux-amd64.tar.gz | tar -xz -C /usr/local/bin --strip-components=1
+RUN curl -fsSL https://github.com/coder/code-server/releases/download/v4.98.2/code-server-4.98.2-linux-amd64.tar.gz | tar -xz -C /usr/local/bin --strip-components=1
 
 # Cấp quyền thực thi cho code-server
 RUN chmod +x /usr/local/bin/code-server
