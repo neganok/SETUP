@@ -1,52 +1,23 @@
 #!/bin/sh
 
-# Cài đặt code-server
-curl -fsSL https://code-server.dev/install.sh | sh 
-
-# Kiểm tra xem code-server có được cài thành công không
-if ! command -v code-server &> /dev/null; then
-    echo "Lỗi: code-server chưa được cài đặt thành công!"
-    exit 1
-fi
-
-# Cài đặt Ngrok
-curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz -o /tmp/ngrok.tgz
-tar -xvzf /tmp/ngrok.tgz -C /usr/local/bin
+# Cài đặt code-server & Ngrok
+curl -fsSL https://code-server.dev/install.sh | sh
+curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz | tar -xz -C /usr/local/bin
 chmod +x /usr/local/bin/ngrok
-rm /tmp/ngrok.tgz
 
-# Kiểm tra xem Ngrok có được cài đặt thành công không
-if ! command -v ngrok &> /dev/null; then
-    echo "Lỗi: Ngrok chưa được cài đặt thành công!"
-    exit 1
-fi
-
-# Chạy code-server với mật khẩu "ngcsl"
-PASSWORD="ngcsl" /usr/bin/code-server --bind-addr 0.0.0.0:8080 &
-
-# Đăng nhập Ngrok
-ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
-
-# Đợi code-server khởi động
+# Chạy code-server & Ngrok
+PASSWORD="ngcsl" code-server --bind-addr 0.0.0.0:8080 &
 sleep 10
-
-# Chạy Ngrok
+ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
 ngrok http 8080 &
 
-# Đợi Ngrok khởi động
-sleep 5
-
 # Lấy Public URL của Ngrok
+sleep 5
 public_url=$(curl -s http://127.0.0.1:4040/api/tunnels | grep -o 'https://[^"]*')
-echo "Public URL của Ngrok: $public_url"
+echo "Public URL: $public_url"
 
-# Chạy vòng lặp đếm thời gian
-total_seconds=2592000
-while [ $total_seconds -gt 0 ]; do
-    hours=$(( total_seconds / 3600 ))
-    minutes=$(( (total_seconds % 3600) / 60 ))
-    seconds=$(( total_seconds % 60 ))
-    printf "Thời gian còn lại: %d giờ %d phút %d giây\n" "$hours" "$minutes" "$seconds"
+# Đếm ngược thời gian
+for i in $(seq 2592000 -1 1); do
+    printf "Còn lại: %d giờ %d phút %d giây\n" $((i/3600)) $(((i%3600)/60)) $((i%60))
     sleep 1
-    total_seconds=$(( total_seconds - 1 ))
 done
