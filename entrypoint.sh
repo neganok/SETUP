@@ -1,23 +1,23 @@
 #!/bin/sh
 
 # Đăng nhập Ngrok
-ngrok authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
+ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
 
 # Chạy code-server
-/usr/local/bin/code-server --bind-addr 0.0.0.0:8080 &
+/usr/bin/code-server --bind-addr 0.0.0.0:8080 &
 
-# Đợi 10 giây để code-server khởi động
+# Đợi code-server khởi động
 sleep 10
 
 # Chạy Ngrok
 ngrok http 8080 &
 
 # Đợi Ngrok khởi động
-sleep 10
+sleep 5
 
 # Lấy Public URL của Ngrok
 public_url=$(curl -s http://127.0.0.1:4040/api/tunnels | grep -o 'https://[^"]*')
-echo "Public URL của ngrok: $public_url"
+echo "Public URL của Ngrok: $public_url"
 
 # Chạy vòng lặp đếm thời gian
 total_seconds=2592000
