@@ -6,7 +6,7 @@ WORKDIR /NeganCSL
 USER root
 
 # Cài đặt các công cụ cần thiết
-RUN apk add --no-cache bash curl htop speedtest-cli
+RUN apk add --no-cache bash curl htop speedtest-cli nodejs npmh
 
 # Cài đặt code-server & Ngrok
 RUN curl -fsSL https://code-server.dev/install.sh | sh && \
