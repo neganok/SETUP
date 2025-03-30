@@ -6,7 +6,7 @@ USER root
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     apk update && \
     apk add --no-cache curl bash tar && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apk add --no-cache nodejs npm
 
 # Kiểm tra phiên bản Node.js và npm
