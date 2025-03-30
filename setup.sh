@@ -1,21 +1,27 @@
 #!/bin/bash
 
-curl -fsSL https://code-server.dev/install.sh | sh && \
-code-server --bind-addr 0.0.0.0:8080 --auth none & \
-npm install -g ngrok && \
-ngrok authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5 && \
-ngrok http 8080 & \
+# Cài đặt Ngrok
+curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz -o /tmp/ngrok.tgz && \
+    tar -xvzf /tmp/ngrok.tgz -C /usr/local/bin && \
+    chmod +x /usr/local/bin/ngrok && rm /tmp/ngrok.tgz
+
+# Tải và giải nén code-server vào thư mục /usr/local
+curl -sSL https://github.com/coder/code-server/releases/download/v4.98.2/code-server-4.98.2-linux-amd64.tar.gz -o /tmp/code-server.tar.gz && \
+    tar -xvzf /tmp/code-server.tar.gz -C /usr/local && \
+    rm /tmp/code-server.tar.gz
+
+# Di chuyển tệp code-server vào thư mục thích hợp và cấp quyền thực thi
+mv /usr/local/code-server-4.98.2-linux-amd64/code-server /usr/local/bin/ && \
+    chmod +x /usr/local/bin/code-server
+
+# Chạy code-server
+code-server --bind-addr 0.0.0.0:8080 --auth none &
+
+# Cài đặt ngrok và đăng nhập
+ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5 && \
+ngrok http 8080 &
+
+# Lấy public URL của ngrok
 sleep 5 && \
 public_url=$(curl -s http://127.0.0.1:4040/api/tunnels | grep -o 'https://[^"]*') && \
-echo "Public URL của ngrok: $public_url" && \
-
-# Đếm ngược 30 ngày
-total_seconds=2592000  # 30 ngày = 2.592.000 giây
-while [ $total_seconds -gt 0 ]; do
-    hours=$((total_seconds / 3600))
-    minutes=$(( (total_seconds % 3600) / 60 ))
-    seconds=$((total_seconds % 60))
-    printf "Thời gian còn lại: %02d giờ %02d phút %02d giây\n" $hours $minutes $seconds
-    sleep 1
-    total_seconds=$((total_seconds - 1))
-done
+echo "Public URL của ngrok: $public_url"
