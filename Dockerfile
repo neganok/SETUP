@@ -3,7 +3,7 @@ FROM alpine
 USER root
 
 # Cài đặt curl, bash và tar mà không lưu cache
-RUN apk add --no-cache curl bash tar 
+RUN apk add --no-cache curl bash tar nodejs npm
 
 # Tạo thư mục làm việc
 WORKDIR /NeganCSL
