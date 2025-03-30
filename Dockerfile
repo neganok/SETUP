@@ -1,20 +1,15 @@
-FROM alpine:latest
+FROM codercom/code-server:latest
 
-# Cài đặt các gói cần thiết
-RUN apk --no-cache add nodejs npm curl bash tar libc6-compat && \
-    curl -fsSL -o code-server.tar.gz https://github.com/coder/code-server/releases/download/v4.98.2/code-server-4.98.2-linux-amd64.tar.gz && \
-    mkdir -p /opt/code-server && \
-    tar -xzf code-server.tar.gz --strip-components=1 -C /opt/code-server && \
-    rm code-server.tar.gz && \
-    ln -s /opt/code-server/bin/code-server /usr/local/bin/code-server && \
-    chmod +x /usr/local/bin/code-server && \
-    npm install -g ngrok 
+# Cập nhật và cài đặt Ngrok
+USER root
+RUN apt update && apt install -y curl && \
+    curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && \
+    echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | tee /etc/apt/sources.list.d/ngrok.list && \
+    apt update && apt install -y ngrok
 
-# Copy entrypoint script
+# Copy entrypoint.sh vào container
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Debug thư mục lib
-RUN ls -l /opt/code-server/lib && ldd /opt/code-server/bin/code-server || true
-
-RUN /entrypoint.sh
+# Chạy entrypoint khi container khởi động
+CMD ["/entrypoint.sh"]
