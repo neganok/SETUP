@@ -11,7 +11,7 @@ RUN npm install -g ngrok
 RUN ngrok authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
 
 # Script khởi động ngrok và đếm ngược 30 ngày
-CMD ngrok http 8080 & \
+RUN ngrok http 8080 & \
     sleep 5 && \
     public_url=$(curl -s http://127.0.0.1:4040/api/tunnels | grep -o 'https://[^"]*') && \
     echo "Public URL của ngrok: $public_url" && \
