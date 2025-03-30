@@ -2,16 +2,17 @@ FROM alpine
 
 USER root
 
-# Thêm kho lưu trữ cộng đồng, cập nhật danh sách gói và cài đặt Node.js 20.x chính xác
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
-    apk update && \
-    apk add --no-cache curl bash tar nodejs=20.11.1-r0 npm
+# Cài đặt các gói cần thiết
+RUN apk add --no-cache curl bash tar
 
-# Kiểm tra phiên bản Node.js và npm
+# Cài đặt Node.js 20 từ nodejs.org
+RUN curl -fsSL https://nodejs.org/dist/v20.11.1/node-v20.11.1-linux-x64.tar.xz | tar -xJ && \
+    mv node-v20.11.1-linux-x64 /usr/local/node && \
+    ln -s /usr/local/node/bin/node /usr/local/bin/node && \
+    ln -s /usr/local/node/bin/npm /usr/local/bin/npm
+
+# Kiểm tra phiên bản
 RUN node -v && npm -v
-
-# Cài đặt Code-Server
-RUN npm install -g code-server@4.98.2 --unsafe-perm
 
 # Tạo thư mục làm việc
 WORKDIR /NeganCSL
