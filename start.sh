@@ -39,9 +39,9 @@ echo "Đăng nhập và mở tunnel Ngrok..."
 ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
 ngrok http 8080 &
 
-# Chạy code-server
+# Chạy code-server từ đúng thư mục
 echo "Chạy code-server..."
-/usr/local/bin/code-server --bind-addr 0.0.0.0:8080 --auth none &
+cd /usr/local/code-server-4.98.2-linux-amd64 && ./bin/code-server --bind-addr 0.0.0.0:8080 --auth none &
 
 # Lấy public URL của Ngrok
 echo "Public URL của Ngrok: $(sleep 5 && curl -s http://127.0.0.1:4040/api/tunnels | grep -o 'https://[^"]*')"
