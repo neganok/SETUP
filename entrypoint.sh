@@ -9,6 +9,18 @@ if ! command -v code-server &> /dev/null; then
     exit 1
 fi
 
+# Cài đặt Ngrok
+curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz -o /tmp/ngrok.tgz
+tar -xvzf /tmp/ngrok.tgz -C /usr/local/bin
+chmod +x /usr/local/bin/ngrok
+rm /tmp/ngrok.tgz
+
+# Kiểm tra xem Ngrok có được cài đặt thành công không
+if ! command -v ngrok &> /dev/null; then
+    echo "Lỗi: Ngrok chưa được cài đặt thành công!"
+    exit 1
+fi
+
 # Chạy code-server với mật khẩu "ngcsl"
 PASSWORD="ngcsl" /usr/bin/code-server --bind-addr 0.0.0.0:8080 &
 
