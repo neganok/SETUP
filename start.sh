@@ -14,9 +14,6 @@ curl -sSL https://github.com/coder/code-server/releases/download/v4.98.2/code-se
 mv /usr/local/code-server-4.98.2-linux-amd64/code-server /usr/local/bin/ && \
     chmod +x /usr/local/bin/code-server
 
-# Kiểm tra xem tệp code-server có tồn tại trong /usr/local/bin không
-ls -l /usr/local/bin/code-server
-
 # Chạy code-server
 code-server --bind-addr 0.0.0.0:8080 --auth none &
 
