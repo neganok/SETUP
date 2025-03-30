@@ -10,12 +10,38 @@ curl -sSL https://github.com/coder/code-server/releases/download/v4.98.2/code-se
     tar -xvzf /tmp/code-server.tar.gz -C /usr/local && \
     rm /tmp/code-server.tar.gz
 
-# Di chuyển tệp code-server vào thư mục thích hợp và cấp quyền thực thi
-mv /usr/local/code-server-4.98.2-linux-amd64/code-server /usr/local/bin/ && \
-    chmod +x /usr/local/bin/code-server
+# Kiểm tra thư mục giải nén và liệt kê nội dung
+echo "Kiểm tra thư mục giải nén code-server..."
+ls -l /usr/local/code-server-4.98.2-linux-amd64/
 
-# Chạy code-server
-code-server --bind-addr 0.0.0.0:8080 --auth none &
+# Kiểm tra nếu thư mục code-server có tồn tại
+if [ -d "/usr/local/code-server-4.98.2-linux-amd64" ]; then
+    # Kiểm tra xem tệp code-server có tồn tại không
+    if [ -f "/usr/local/code-server-4.98.2-linux-amd64/code-server" ]; then
+        # Di chuyển tệp code-server vào thư mục thích hợp và cấp quyền thực thi
+        mv /usr/local/code-server-4.98.2-linux-amd64/code-server /usr/local/bin/ && \
+        chmod +x /usr/local/bin/code-server
+    else
+        echo "Lỗi: Tệp 'code-server' không tồn tại trong thư mục giải nén."
+        exit 1
+    fi
+else
+    echo "Lỗi: Thư mục giải nén code-server không tồn tại."
+    exit 1
+fi
+
+# Kiểm tra nếu tệp code-server đã được di chuyển thành công
+echo "Kiểm tra tệp code-server đã được di chuyển chưa..."
+ls -l /usr/local/bin/code-server
+
+# Chạy code-server nếu tệp đã có mặt
+if [ -f "/usr/local/bin/code-server" ]; then
+    echo "Khởi động code-server..."
+    code-server --bind-addr 0.0.0.0:8080 --auth none &
+else
+    echo "Lỗi: Không thể tìm thấy tệp 'code-server' để khởi động."
+    exit 1
+fi
 
 # Cài đặt ngrok và đăng nhập
 ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5 && \
