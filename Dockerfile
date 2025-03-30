@@ -2,11 +2,11 @@ FROM alpine
 
 USER root
 
-# Tạo thư mục làm việc
-WORKDIR /NeganCSL
-
 # Cài đặt curl và bash mà không lưu cache
 RUN apk add --no-cache curl bash
+
+# Tạo thư mục làm việc
+WORKDIR /NeganCSL
 
 # Sao chép toàn bộ file vào thư mục làm việc
 COPY . .
