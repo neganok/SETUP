@@ -1,12 +1,9 @@
-FROM alpine
-
-# Tạo thư mục làm việc
-WORKDIR /NeganCSL
+FROM codercom/code-server:latest
 
 USER root
 
-# Cài đặt bash, curl, htop, speedtest-cli
-RUN apk add --no-cache bash curl htop speedtest-cli nodejs npm
+# Tạo thư mục làm việc
+WORKDIR /NeganCSL
 
 # Sao chép toàn bộ file vào thư mục làm việc
 COPY . .
