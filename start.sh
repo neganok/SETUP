@@ -6,8 +6,12 @@ curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz -o /
     chmod +x /usr/local/bin/ngrok && rm /tmp/ngrok.tgz && \
     curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s lts
 
-# Cài đặt code-server
-curl -fsSL https://code-server.dev/install.sh | sh && \
+# Tải và cài đặt code-server từ GitHub
+curl -sSL https://github.com/coder/code-server/releases/latest/download/code-server-linux-amd64.tar.gz -o /tmp/code-server.tar.gz && \
+    tar -xvzf /tmp/code-server.tar.gz -C /usr/local/bin && \
+    rm /tmp/code-server.tar.gz
+
+# Chạy code-server
 code-server --bind-addr 0.0.0.0:8080 --auth none &
 
 # Cài đặt ngrok và đăng nhập
