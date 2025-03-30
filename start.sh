@@ -9,7 +9,7 @@ rm /tmp/ngrok.tgz
 
 # Chạy code-server trên cổng 8080
 echo "Chạy Code-Server..."
-code-server --bind-addr 0.0.0.0:8080 --auth=none &
+/usr/local/bin/code-server --bind-addr 0.0.0.0:8080 --auth=none &
 
 # Đăng nhập Ngrok và mở tunnel
 echo "Đăng nhập và mở tunnel Ngrok..."
