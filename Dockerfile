@@ -1,5 +1,5 @@
 # Chọn image nhẹ nhất có Node.js và cài thêm curl, bash, tar
-FROM node:20-lts-alpine
+FROM node:20-alpine
 
 # Chạy với quyền root
 USER root
