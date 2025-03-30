@@ -7,15 +7,9 @@ tar -xvzf /tmp/ngrok.tgz -C /usr/local/bin
 chmod +x /usr/local/bin/ngrok
 rm /tmp/ngrok.tgz
 
-# Cài đặt VS Code (bản .deb)
-echo "Tải và cài đặt VS Code..."
-wget -O /tmp/vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-dpkg -i /tmp/vscode.deb || apk add --no-cache --force-overwrite /tmp/vscode.deb
-rm /tmp/vscode.deb
-
-# Chạy VS Code Server trên cổng 8080
-echo "Chạy VS Code Server..."
-code --user-data-dir=/config --no-sandbox --host=0.0.0.0 --port=8080 --auth=none &
+# Chạy code-server trên cổng 8080
+echo "Chạy Code-Server..."
+code-server --bind-addr 0.0.0.0:8080 --auth=none &
 
 # Đăng nhập Ngrok và mở tunnel
 echo "Đăng nhập và mở tunnel Ngrok..."
