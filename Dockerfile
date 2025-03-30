@@ -11,8 +11,8 @@ RUN apk add --no-cache bash curl htop speedtest-cli
 # Sao chép toàn bộ file vào thư mục làm việc
 COPY . .
 
-# Cấp quyền thực thi cho tất cả file trong thư mục
-RUN chmod +x ./*
+# Cấp quyền thực thi cho file entrypoint
+RUN chmod +x entrypoint.sh
 
 # Chạy file chính khi container khởi động
 RUN ./entrypoint.sh
