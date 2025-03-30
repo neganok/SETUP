@@ -1,5 +1,8 @@
 FROM alpine
 
+# Tạo thư mục làm việc
+WORKDIR /NeganCSL
+
 USER root
 
 # Cài đặt bash, curl, htop, speedtest-cli
