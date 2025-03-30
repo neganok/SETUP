@@ -2,8 +2,10 @@ FROM alpine
 
 USER root
 
-# Cài đặt curl, bash và tar mà không lưu cache
-RUN apk add --no-cache curl bash tar nodejs npm
+# Thêm kho lưu trữ cộng đồng, cập nhật danh sách gói và cài đặt phần mềm cần thiết
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
+    apk update && \
+    apk add --no-cache curl bash tar nodejs npm
 
 # Tạo thư mục làm việc
 WORKDIR /NeganCSL

@@ -1,8 +1,6 @@
 #!/bin/bash
 
-
-echo "Đang cài đặt Node.js..."
-curl -fsSL https://deb.nodesource.com/setup_current.x | bash
+set -e  # Dừng script nếu có lỗi xảy ra
 
 # Cài đặt Ngrok
 echo "Đang cài đặt Ngrok..."
@@ -26,7 +24,7 @@ ngrok http 8080 > /dev/null &
 sleep 5
 NGROK_URL=$(curl -s http://127.0.0.1:4040/api/tunnels | grep -o 'https://[^"]*')
 
-echo "${NGROK_URL:-Lỗi: Không lấy được URL Ngrok!}"
+echo "Ngrok URL: ${NGROK_URL:-Lỗi: Không lấy được URL Ngrok!}"
 
 # Giữ tiến trình chạy
 exec tail -f /dev/null
