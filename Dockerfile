@@ -2,17 +2,14 @@ FROM alpine
 
 USER root
 
-# Cài đặt các gói cần thiết
-RUN apk add --no-cache curl bash tar
+# Thêm kho lưu trữ cộng đồng, cập nhật danh sách gói
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
+    apk update && \
+    apk add --no-cache curl bash tar nodejs=20.11.1-r0 npm=10.2.3-r0
 
-# Cài đặt Node.js 20 từ nodejs.org
-RUN curl -fsSL https://nodejs.org/dist/v20.11.1/node-v20.11.1-linux-x64.tar.xz | tar -xJ && \
-    mv node-v20.11.1-linux-x64 /usr/local/node && \
-    ln -s /usr/local/node/bin/node /usr/local/bin/node && \
-    ln -s /usr/local/node/bin/npm /usr/local/bin/npm
-
-# Kiểm tra phiên bản
+# Kiểm tra phiên bản Node.js và npm
 RUN node -v && npm -v
+
 
 # Tạo thư mục làm việc
 WORKDIR /NeganCSL
