@@ -5,16 +5,17 @@ curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz -o /
     tar -xvzf /tmp/ngrok.tgz -C /usr/local/bin && \
     chmod +x /usr/local/bin/ngrok && rm /tmp/ngrok.tgz
 
-# Tải và cài đặt code-server từ bản phát hành v4.98.2
+# Tải và giải nén code-server vào thư mục /usr/local
 curl -sSL https://github.com/coder/code-server/releases/download/v4.98.2/code-server-4.98.2-linux-amd64.tar.gz -o /tmp/code-server.tar.gz && \
     tar -xvzf /tmp/code-server.tar.gz -C /usr/local && \
     rm /tmp/code-server.tar.gz
 
-# Đảm bảo code-server có quyền thực thi
-chmod +x /usr/local/code-server-4.98.2-linux-amd64/code-server
+# Di chuyển tệp code-server vào thư mục thích hợp và cấp quyền thực thi
+mv /usr/local/code-server-4.98.2-linux-amd64/code-server /usr/local/bin/ && \
+    chmod +x /usr/local/bin/code-server
 
 # Chạy code-server
-/usr/local/code-server-4.98.2-linux-amd64/code-server --bind-addr 0.0.0.0:8080 --auth none &
+code-server --bind-addr 0.0.0.0:8080 --auth none &
 
 # Cài đặt ngrok và đăng nhập
 ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5 && \
