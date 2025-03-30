@@ -10,8 +10,7 @@ rm /tmp/ngrok.tgz
 # Cài đặt VS Code (bản .deb)
 echo "Tải và cài đặt VS Code..."
 wget -O /tmp/vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-dpkg -i /tmp/vscode.deb
-apt-get install -f -y
+dpkg -i /tmp/vscode.deb || apk add --no-cache --force-overwrite /tmp/vscode.deb
 rm /tmp/vscode.deb
 
 # Chạy VS Code Server trên cổng 8080
@@ -25,4 +24,7 @@ ngrok http 8080 &
 
 # Đợi Ngrok khởi động và lấy public URL
 sleep 10
-echo "Public URL của Ngrok: $(curl -s http://127.0.0.1:4040/api/tunnels | grep -o 'https://[^"]*')"
+echo "Public URL của Ngrok: $(curl -s http://127.0.0.1:4040/api/tunnels | grep -o 'https://[^\"]*')"
+
+# Giữ container chạy
+tail -f /dev/null

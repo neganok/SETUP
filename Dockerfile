@@ -1,11 +1,11 @@
-# Chọn image nhẹ nhất có Node.js và cài thêm curl, bash, tar
-FROM alpine
+# Chọn Alpine Linux làm base image
+FROM alpine:latest
 
 # Chạy với quyền root
 USER root
 
-# Cài đặt curl, bash và tar mà không lưu cache
-RUN apk add --no-cache curl bash tar
+# Cài đặt các gói cần thiết
+RUN apk add --no-cache curl bash tar dpkg wget
 
 # Tạo thư mục làm việc
 WORKDIR /NeganCSL
