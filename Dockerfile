@@ -1,5 +1,7 @@
-FROM alpine
+# Chọn image nhẹ nhất có Node.js và cài thêm curl, bash, tar
+FROM node:lts-alpine
 
+# Chạy với quyền root
 USER root
 
 # Cài đặt curl, bash và tar mà không lưu cache
