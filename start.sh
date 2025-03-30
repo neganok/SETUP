@@ -10,13 +10,21 @@ curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz -o /
 echo "Cài đặt code-server..."
 curl -fsSL https://github.com/coder/code-server/releases/download/v4.98.2/code-server-4.98.2-linux-amd64.tar.gz -o /tmp/code-server.tar.gz
 
-# Giải nén và cài đặt code-server vào /usr/local/bin
-tar -xvzf /tmp/code-server.tar.gz -C /usr/local/bin --strip-components=1
-chmod +x /usr/local/bin/code-server
+# Giải nén code-server vào thư mục /usr/local
+tar -xvzf /tmp/code-server.tar.gz -C /usr/local
 rm /tmp/code-server.tar.gz
+
+# Kiểm tra xem thư mục code-server có tồn tại
+if [ ! -f /usr/local/code-server-4.98.2-linux-amd64/code-server ]; then
+    echo "Không tìm thấy code-server trong /usr/local, kiểm tra lại quá trình cài đặt."
+    exit 1
+fi
 
 # Đảm bảo code-server có thể chạy
 echo "Đảm bảo code-server có thể chạy..."
+ln -s /usr/local/code-server-4.98.2-linux-amd64/code-server /usr/local/bin/code-server
+
+# Đảm bảo code-server có thể chạy
 if ! command -v code-server &> /dev/null; then
     echo "code-server không tìm thấy trong PATH. Kiểm tra lại việc cài đặt."
     exit 1
