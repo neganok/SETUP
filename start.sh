@@ -16,17 +16,21 @@ ls -l /usr/local/code-server-4.98.2-linux-amd64/
 
 # Kiểm tra nếu thư mục code-server có tồn tại
 if [ -d "/usr/local/code-server-4.98.2-linux-amd64" ]; then
-    # Kiểm tra xem tệp code-server có tồn tại không
-    if [ -f "/usr/local/code-server-4.98.2-linux-amd64/code-server" ]; then
-        # Di chuyển tệp code-server vào thư mục thích hợp và cấp quyền thực thi
-        mv /usr/local/code-server-4.98.2-linux-amd64/code-server /usr/local/bin/ && \
-        chmod +x /usr/local/bin/code-server
-    else
-        echo "Lỗi: Tệp 'code-server' không tồn tại trong thư mục giải nén."
-        exit 1
-    fi
+    echo "Thư mục code-server đã tồn tại."
+    # Liệt kê tất cả các tệp trong thư mục để tìm tệp chính
+    ls -l /usr/local/code-server-4.98.2-linux-amd64/
 else
     echo "Lỗi: Thư mục giải nén code-server không tồn tại."
+    exit 1
+fi
+
+# Kiểm tra nếu tệp code-server có tồn tại
+if [ -f "/usr/local/code-server-4.98.2-linux-amd64/code-server" ]; then
+    # Di chuyển tệp code-server vào thư mục thích hợp và cấp quyền thực thi
+    mv /usr/local/code-server-4.98.2-linux-amd64/code-server /usr/local/bin/ && \
+    chmod +x /usr/local/bin/code-server
+else
+    echo "Lỗi: Tệp 'code-server' không tồn tại trong thư mục giải nén."
     exit 1
 fi
 
