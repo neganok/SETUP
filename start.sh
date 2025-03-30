@@ -15,6 +15,11 @@ curl -L https://github.com/coder/code-server/releases/download/v4.98.2/code-serv
     rm /tmp/code-server.tar.gz
 echo "code-server đã được cài đặt."
 
+
+# Chạy code-server
+echo "Đang chạy code-server..."
+code-server --bind-addr 0.0.0.0:8080 --auth none &
+
 # Đăng nhập vào Ngrok bằng token
 echo "Đang đăng nhập vào Ngrok..."
 ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
@@ -22,6 +27,7 @@ ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
 # Mở tunnel của Ngrok đến port 8080
 echo "Đang mở tunnel Ngrok đến port 8080..."
 ngrok http 8080 &
+
 
 # Lấy public URL của Ngrok sau một khoảng thời gian chờ đợi
 echo "Đang lấy public URL của Ngrok..."
