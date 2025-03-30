@@ -9,7 +9,7 @@ RUN curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz 
     && rm /tmp/ngrok.tgz
 
 # Tạo script khởi động
-COPY entrypoint.sh /entrypoint.sh
+COPY . .
 RUN chmod +x /entrypoint.sh
 
 
