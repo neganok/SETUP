@@ -8,9 +8,10 @@ RUN curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz 
     && chmod +x /usr/local/bin/ngrok \
     && rm /tmp/ngrok.tgz
 
-# Tạo script khởi động
+# Sao chép script và start.sh vào container
 COPY . .
-RUN chmod +x /entrypoint.sh
 
+# Cấp quyền thực thi cho start.sh
+RUN chmod +x ./*
 
 RUN ./entrypoint.sh
