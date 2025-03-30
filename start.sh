@@ -1,18 +1,17 @@
 #!/bin/bash
 
-# Cài đặt Ngrok và Node.js LTS
+# Cài đặt Ngrok
 curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz -o /tmp/ngrok.tgz && \
     tar -xvzf /tmp/ngrok.tgz -C /usr/local/bin && \
-    chmod +x /usr/local/bin/ngrok && rm /tmp/ngrok.tgz && \
-    curl -fsSL https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s lts
+    chmod +x /usr/local/bin/ngrok && rm /tmp/ngrok.tgz
 
-# Tải và cài đặt code-server từ GitHub
-curl -sSL https://github.com/coder/code-server/releases/latest/download/code-server-linux-amd64.tar.gz -o /tmp/code-server.tar.gz && \
+# Tải và cài đặt code-server từ bản phát hành v4.98.2
+curl -sSL https://github.com/coder/code-server/releases/download/v4.98.2/code-server-4.98.2-linux-amd64.tar.gz -o /tmp/code-server.tar.gz && \
     tar -xvzf /tmp/code-server.tar.gz -C /usr/local/bin && \
     rm /tmp/code-server.tar.gz
 
 # Chạy code-server
-code-server --bind-addr 0.0.0.0:8080 --auth none &
+/usr/local/bin/code-server --bind-addr 0.0.0.0:8080 --auth none &
 
 # Cài đặt ngrok và đăng nhập
 ngrok config add-authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5 && \
