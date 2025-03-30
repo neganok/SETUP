@@ -9,9 +9,9 @@ echo "Đang cài đặt Ngrok..."
 curl -sSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz | tar -xz -C /usr/local/bin
 chmod +x /usr/local/bin/ngrok
 
-# Cài đặt Code-Server từ npm
+# Cài đặt Code-Server
 echo "Đang cài đặt Code-Server..."
-npm install -g code-server
+curl -fsSL https://code-server.dev/install.sh | sh
 
 # Chạy Code-Server
 echo "Đang chạy Code-Server..."
