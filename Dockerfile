@@ -5,8 +5,8 @@ USER root
 # Tạo thư mục làm việc
 WORKDIR /NeganCSL
 
-# Cài đặt bash
-RUN apk add bash 
+# Cài đặt curl và bash mà không lưu cache
+RUN apk add --no-cache curl bash
 
 # Sao chép toàn bộ file vào thư mục làm việc
 COPY . .
