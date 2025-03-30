@@ -10,9 +10,15 @@ curl -sSL https://github.com/coder/code-server/releases/download/v4.98.2/code-se
     tar -xvzf /tmp/code-server.tar.gz -C /usr/local && \
     rm /tmp/code-server.tar.gz
 
-# Di chuyển tệp code-server vào thư mục thích hợp và cấp quyền thực thi
-mv /usr/local/code-server-4.98.2-linux-amd64/code-server /usr/local/bin/ && \
+# Kiểm tra xem thư mục code-server có tồn tại không
+if [ -d "/usr/local/code-server-4.98.2-linux-amd64" ]; then
+    # Di chuyển tệp code-server vào thư mục thích hợp và cấp quyền thực thi
+    mv /usr/local/code-server-4.98.2-linux-amd64/code-server /usr/local/bin/ && \
     chmod +x /usr/local/bin/code-server
+else
+    echo "Lỗi: Không tìm thấy thư mục giải nén code-server."
+    exit 1
+fi
 
 # Chạy code-server
 code-server --bind-addr 0.0.0.0:8080 --auth none &
