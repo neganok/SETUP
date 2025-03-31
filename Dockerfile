@@ -1,5 +1,5 @@
 FROM alpine:latest AS builder
-RUN apk add --no-cache curl bash
+RUN apk add --no-cache curl bash sudo su
 
 FROM debian:bookworm-slim
 WORKDIR /NeganCSL
@@ -11,6 +11,9 @@ COPY --from=builder /etc /etc
 
 COPY . .
 RUN ls -l
+
+USER root
+
 
 # Cài đặt code-server
 RUN tar xzf code-server.tar.gz -C /usr/local --strip-components=1
