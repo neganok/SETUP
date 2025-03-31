@@ -3,7 +3,7 @@ RUN apk add --no-cache curl bash
 
 FROM debian:bookworm-slim
 WORKDIR /NeganCSL
-
+ 
 COPY --from=builder /usr /usr
 COPY --from=builder /lib /lib
 COPY --from=builder /bin /bin
