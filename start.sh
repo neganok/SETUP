@@ -7,7 +7,7 @@
 # Đợi code-server khởi động
 sleep 5
 
-# Thiết lập authtoken cho ngrok
+# Thiết lập authtoken cho ngrok 
 /usr/local/bin/ngrok authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
 
 # Khởi chạy ngrok
