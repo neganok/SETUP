@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #!/bin/bash
 
 # Khởi chạy code-server
@@ -19,4 +20,5 @@ sleep 5
 echo "Ngrok Public URL: $(curl -s http://127.0.0.1:4040/api/tunnels | grep -o 'https://[^"]*' | head -1)"
 
 # Giữ container chạy
-exec tail -f /dev/null
+exec tail -f /dev/null 
+ 
