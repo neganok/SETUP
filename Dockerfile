@@ -2,8 +2,6 @@ FROM alpine:latest AS builder
 RUN apk add --no-cache curl bash
 
 FROM debian:bookworm-slim
-USER root
-
 WORKDIR /NeganCSL
 
 COPY --from=builder /usr /usr
