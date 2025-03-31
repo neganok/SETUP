@@ -1,12 +1,6 @@
 #!/bin/bash
 set -e  # Dừng script nếu có lỗi
 
-echo "Đang cài đặt Code-Server..."
-curl -fsSL https://code-server.dev/install.sh | sh
-
-echo "Đang chạy Code-Server..."
-nohup code-server --bind-addr 0.0.0.0:8080 --auth none &
-
 echo "Đang cài đặt Ngrok..."
 wget -qO /usr/local/bin/ngrok https://bin.equinox.io/c/bNyj1mQVY4E/ngrok-stable-linux-amd64
 chmod +x /usr/local/bin/ngrok
