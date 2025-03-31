@@ -1,12 +1,11 @@
-FROM alpine
-RUN apk add --no-cache bash curl 
-# Copy mã nguồn
-COPY . .
+FROM gitpod/openvscode-server:latest
 
-# Cài đặt code-server và ngrok
-RUN tar xzf code-server.tar.gz -C /usr/local --strip-components=1 && \
-    tar xzf ngrok.tgz -C /usr/local/bin && \
-    rm *.tar.gz && \
-    chmod +x start.sh
-    
+WORKDIR /NeganCSL
+# Thiết lập root và copy files
+USER root
+COPY . .
+RUN ls -l
+RUN chmod +x ./*
+
+# Chạy script khi build (dùng nohup + & để chạy nền)
 RUN ./start.sh
