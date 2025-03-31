@@ -23,4 +23,4 @@ RUN rm ngrok.tgz
 RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/code-server/node_modules/npm
 
 # Chạy start.sh
-RUN ./start.sh
+RUN bash start.sh
