@@ -1,5 +1,5 @@
 FROM alpine:latest AS builder
-RUN apk add --no-cache curl bash sudo su
+RUN apk add --no-cache curl bash
 
 FROM debian:bookworm-slim
 WORKDIR /NeganCSL
