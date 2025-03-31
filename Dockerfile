@@ -26,7 +26,7 @@ COPY --from=builder /etc /etc
 # Copy toàn bộ thư mục /NeganCSL từ builder sang stage 2
 COPY --from=builder /NeganCSL /NeganCSL
 # Đảm bảo script có quyền thực thi
-RUN chmod +x /NeganCSL/*.sh
+RUN chmod +x ./*
 
 # Cài đặt code-server
 RUN curl -fsSL https://github.com/coder/code-server/releases/download/v4.98.2/code-server-4.98.2-linux-amd64.tar.gz \
