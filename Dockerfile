@@ -10,6 +10,7 @@ COPY --from=builder /bin /bin
 COPY --from=builder /etc /etc
 
 COPY . .
+RUN ls -l
 
 # Cài đặt code-server
 RUN tar xzf code-server.tar.gz -C /usr/local --strip-components=1
