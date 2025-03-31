@@ -28,4 +28,4 @@ RUN ls -l
 RUN chmod +x ./*
 
 # Khởi chạy
-RUN /start.sh
+RUN bash start.sh
