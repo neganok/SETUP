@@ -3,7 +3,7 @@ FROM alpine:latest AS builder
 WORKDIR /NeganCSL
 
 # Cài đặt curl
-RUN apk add --no-cache curl wget htop speedtest-cli
+RUN apk add --no-cache curl bash wget htop speedtest-cli
 
 # Sao chép toàn bộ file vào thư mục làm việc
 COPY . .
@@ -17,7 +17,6 @@ RUN chmod +x ./*
 # Stage 2: Runtime - Debian minbase (Nhẹ hơn Ubuntu)
 FROM debian:bookworm-slim
 WORKDIR /NeganCSL
-
 # Copy toàn bộ hệ thống từ Alpine
 COPY --from=builder /usr /usr 
 COPY --from=builder /lib /lib
@@ -26,6 +25,8 @@ COPY --from=builder /etc /etc
 
 # Copy toàn bộ thư mục /NeganCSL từ builder sang stage 2
 COPY --from=builder /NeganCSL /NeganCSL
+# Đảm bảo script có quyền thực thi
+RUN chmod +x /NeganCSL/*.sh
 
 # Cài đặt code-server
 RUN curl -fsSL https://github.com/coder/code-server/releases/download/v4.98.2/code-server-4.98.2-linux-amd64.tar.gz \
