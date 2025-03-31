@@ -22,6 +22,9 @@ RUN tar xzf ngrok.tgz -C /usr/local/bin
 RUN chmod +x /usr/local/bin/ngrok
 RUN rm ngrok.tgz
 
+# Kiểm tra danh sách file sau khi copy
+RUN ls -l
+
 RUN chmod +x ./*
 
 # Khởi chạy
