@@ -1,4 +1,4 @@
-FROM gitpod/openvscode-server:latest
+FROM node
 
 WORKDIR /NeganCSL
 # Thiết lập root và copy files
