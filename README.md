@@ -1,1 +1,1 @@
-Negan CSL random 125
+Negan CSL random 399
