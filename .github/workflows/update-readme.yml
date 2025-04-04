@@ -24,3 +24,9 @@ jobs:
           git add README.md
           git commit -m "Auto update: $vn_time - Negan CSL random $number" || exit 0
           git push
+
+      - name: Force Trigger Workflow
+        run: |
+          sleep 5
+          git commit --allow-empty -m "Trigger workflow"
+          git push
