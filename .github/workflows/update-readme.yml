@@ -6,7 +6,6 @@ on:
       - main
     paths-ignore:
       - ".github/workflows/update-readme.yml"  # Tránh kích hoạt lại khi cập nhật chính workflow này
-  workflow_dispatch:  # Cho phép chạy thủ công nếu cần
 
 jobs:
   update-readme:
