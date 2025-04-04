@@ -2,11 +2,12 @@ name: Update README
 
 on:
   push:
-    branches:
-      - main
-    paths-ignore:
-      - ".github/workflows/update-readme.yml"  # Tránh kích hoạt lại khi cập nhật chính workflow này
-  workflow_dispatch:  # Cho phép chạy thủ công nếu cần
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write  # Cấp quyền ghi vào repo
 
 jobs:
   update-readme:
@@ -19,19 +20,11 @@ jobs:
           vn_time=$(TZ='Asia/Ho_Chi_Minh' date '+%H:%M:%S %d-%m-%Y (VN)')
 
           echo -e "⏰ Cập nhật lúc $vn_time (VN)\n🔢 Negan CSL random $number\n$(date '+%s')" > README.md
-          echo "$(date '+%s')" > .trigger  # File giả để tránh lỗi cache
+          echo "$(date '+%s')" > .trigger  # Tạo file giả để trigger lại workflow
 
       - run: |
-          git config --global user.name "neganok"
-          git config --global user.email "hackersvn1@gmail.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md .trigger
           git commit -m "Auto update: $vn_time - Negan CSL random $number" || exit 0
-          git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git"
-
-      - name: Trigger Workflow Again
-        run: |
-          sleep 5  # Đợi 5 giây để đảm bảo commit được đẩy lên
-          curl -X POST -H "Accept: application/vnd.github.everest-preview+json" \
-               -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
-               https://api.github.com/repos/${{ github.repository }}/actions/workflows/update-readme.yml/dispatches \
-               -d '{"ref":"main"}'
+          git push
