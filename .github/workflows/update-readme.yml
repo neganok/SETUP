@@ -6,9 +6,12 @@ on:
   pull_request:
     branches: [main]
   workflow_run:
-    workflows: ["Update README"]  # Gọi lại chính workflow này khi nó chạy xong
+    workflows: ["Update README"]  
     types:
       - completed
+
+permissions:
+  contents: write  
 
 jobs:
   update-readme:
@@ -33,10 +36,18 @@ jobs:
           git commit -m "Auto update: $vn_time - Negan CSL random $number" || exit 0
           git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git"
 
-      - name: 🔄 Trigger Workflow Again
+      - name: Force Workflow Rerun (GitHub API)
         run: |
           sleep 5
           curl -X POST -H "Accept: application/vnd.github.everest-preview+json" \
                -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
                https://api.github.com/repos/${{ github.repository }}/actions/workflows/update-readme.yml/dispatches \
                -d '{"ref":"main"}'
+
+      - name: Force Push Another Dummy Commit
+        run: |
+          sleep 5
+          echo "$(date '+%s')" > .force-trigger  # Tạo file khác để ép commit
+          git add .force-trigger
+          git commit -m "Trigger Workflow Again" || exit 0
+          git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git"
