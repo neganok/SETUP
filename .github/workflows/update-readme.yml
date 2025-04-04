@@ -1,9 +1,7 @@
 name: Update README Every 5 Minutes
 
 on:
-  schedule:
-    - cron: '*/1 * * * *'  # Chạy mỗi 5 phút theo UTC (tương ứng VN+7)
-  workflow_dispatch:  # Cho phép chạy thủ công nếu cần
+  workflow_dispatch:  # Chỉ chạy khi bấm tay, không dùng cron
 
 jobs:
   update-readme:
@@ -13,17 +11,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate random number & update README
+      - name: Run infinite loop workflow
         run: |
-          number=$(shuf -i 100-999 -n 1)
-          vn_time=$(TZ='Asia/Ho_Chi_Minh' date '+%H:%M:%S %d-%m-%Y (VN)')
-          echo "⏰ Cập nhật lúc $vn_time (VN)" > README.md
-          echo "🔢 Negan CSL random $number" >> README.md
+          while true; do
+            for i in {5..1}; do
+              echo "⏳ Còn lại $i phút trước khi commit..."
+              sleep 60  # Chờ 1 phút
+            done
 
-      - name: Commit & Push
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "Auto update: $vn_time - Negan CSL random $number" || exit 0
-          git push
+            number=$(shuf -i 100-999 -n 1)
+            vn_time=$(TZ='Asia/Ho_Chi_Minh' date '+%H:%M:%S %d-%m-%Y (VN)')
+            
+            echo "⏰ Cập nhật lúc $vn_time (VN)" > README.md
+            echo "🔢 Negan CSL random $number" >> README.md
+            
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add README.md
+            git commit -m "Auto update: $vn_time - Negan CSL random $number" || exit 0
+            git push
+            
+            echo "✅ Đã commit, chờ 5 phút để lặp lại..."
+          done
