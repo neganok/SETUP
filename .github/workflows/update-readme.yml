@@ -22,4 +22,4 @@ jobs:
         run: |
           git add README.md
           git commit -m "Auto update: Negan CSL random $number" || exit 0
-          git push
+          git push 
