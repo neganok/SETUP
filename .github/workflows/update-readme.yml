@@ -2,7 +2,7 @@ name: Update README Every 5 Minutes
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Chạy mỗi 5 phút (mặc định UTC)
+    - cron: '*/5 * * * *'  # Chạy mỗi 5 phút (UTC)
   workflow_dispatch:        # Cho phép chạy thủ công nếu muốn
 
 jobs:
@@ -20,7 +20,6 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config user.name "github-actions[bot]"
           git add README.md
           git commit -m "Auto update: Negan CSL random $number" || exit 0
-          git push 
+          git push
