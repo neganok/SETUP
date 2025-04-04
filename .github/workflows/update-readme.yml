@@ -17,5 +17,5 @@ jobs:
       - run: |
           sleep 5
           curl -X POST -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
-               https://api.github.com/repos/${{ github.repository }}/actions/workflows/update-readme.yml/dispatches \
+               https://api.github.com/repos/${{ github.repository }}/actions/workflows/update-readme.yml/dispatches \ 
                -d '{"ref":"main"}'
