@@ -10,16 +10,21 @@ jobs:
   update-readme:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - run: |
+      - name: Update README
+        run: |
           number=$(shuf -i 100-999 -n 1)
           vn_time=$(TZ='Asia/Ho_Chi_Minh' date '+%H:%M:%S %d-%m-%Y (VN)')
 
           echo -e "⏰ Cập nhật lúc $vn_time (VN)\n🔢 Negan CSL random $number\n$(date '+%s')" > README.md
           echo "$(date '+%s')" > .trigger  # Tạo file giả để trigger lại workflow
 
-      - run: |
+      - name: Commit & Push changes
+        run: |
+          git config --global user.name "neganok"
+          git config --global user.email "hackersvn1@gmail.com"
           git add README.md .trigger
           git commit -m "Auto update: $vn_time - Negan CSL random $number" || exit 0
           git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git"
