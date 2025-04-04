@@ -1,8 +1,8 @@
 name: Update README Every 5 Minutes
 
 on:
-  push:  # Tự chạy lại khi có commit mới
-  workflow_dispatch:  # Cho phép chạy tay nếu cần
+  push:
+  workflow_dispatch:
 
 jobs:
   update-readme:
@@ -16,7 +16,7 @@ jobs:
         run: |
           for i in {5..1}; do
             echo "⏳ Còn lại $i phút trước khi commit..."
-            sleep 60  # Chờ 1 phút
+            sleep 60
           done
 
       - name: Update README
@@ -26,6 +26,7 @@ jobs:
           
           echo "⏰ Cập nhật lúc $vn_time (VN)" > README.md
           echo "🔢 Negan CSL random $number" >> README.md
+          echo "$(date '+%s')" >> README.md  # Thêm timestamp để nội dung thay đổi
 
       - name: Commit & Push changes
         run: |
