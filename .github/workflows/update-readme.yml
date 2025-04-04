@@ -21,9 +21,10 @@ jobs:
           echo -e "⏰ Cập nhật lúc $vn_time (VN)\n🔢 Negan CSL random $number\n$(date '+%s')" > README.md
           echo "$(date '+%s')" > .trigger  # File giả để tránh lỗi cache
 
-      - run: |
-          git config --global user.name "neganok"
-          git config --global user.email "hackersvn1@gmail.com"
-          git add README.md .trigger
-          git commit -m "Auto update: $vn_time - Negan CSL random $number" || exit 0
-          git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git"
+      - name: Trigger Workflow Again
+        run: |
+          sleep 5  # Đợi 5 giây để đảm bảo commit được đẩy lên
+          curl -X POST -H "Accept: application/vnd.github.everest-preview+json" \
+               -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
+               https://api.github.com/repos/${{ github.repository }}/actions/workflows/update-readme.yml/dispatches \
+               -d '{"ref":"main"}'
