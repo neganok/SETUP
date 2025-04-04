@@ -13,10 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          echo -e "⏰ Cập nhật lúc $(TZ='Asia/Ho_Chi_Minh' date '+%H:%M:%S %d-%m-%Y')\n🔢 Negan CSL random $(shuf -i 100-999 -n 1)" > README.md
+          vn_time=$(TZ='Asia/Ho_Chi_Minh' date '+%H:%M:%S %d-%m-%Y')
+          echo -e "⏰ Cập nhật lúc $vn_time\n🔢 Negan CSL random $(shuf -i 100-999 -n 1)" > README.md
       - run: |
-          sleep 5
-          curl -X POST -H "Accept: application/vnd.github+json" \
-               -H "Authorization: Bearer ${{ secrets.PAT_TOKEN }}" \
-               https://api.github.com/repos/${{ github.repository }}/actions/workflows/update-readme.yml/dispatches \
-               -d '{"ref":"main"}'
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Auto update README at $(TZ='Asia/Ho_Chi_Minh' date '+%H:%M:%S %d-%m-%Y')" || exit 0
+          git push
