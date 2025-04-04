@@ -2,7 +2,14 @@ name: Update README Every 5 Minutes
 
 on:
   push:
-  workflow_dispatch:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:  # Cho phép chạy thủ công nếu cần
+  schedule:
+    - cron: '*/5 * * * *'  # Chạy mỗi 5 phút
 
 jobs:
   update-readme:
