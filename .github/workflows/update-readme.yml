@@ -3,6 +3,8 @@ name: Update README
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - ".github/workflows/update-readme.yml"
   workflow_dispatch:
 
 jobs:
@@ -10,11 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - run: |
-          vn_time=$(TZ='Asia/Ho_Chi_Minh' date '+%H:%M:%S %d-%m-%Y')
-          echo -e "⏰ Cập nhật lúc $vn_time\n🔢 Negan CSL random $(shuf -i 100-999 -n 1)" > README.md
-
+          echo -e "⏰ Cập nhật lúc $(TZ='Asia/Ho_Chi_Minh' date '+%H:%M:%S %d-%m-%Y')\n🔢 Negan CSL random $(shuf -i 100-999 -n 1)" > README.md
       - run: |
           sleep 5
           curl -X POST -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
