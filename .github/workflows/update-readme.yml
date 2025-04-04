@@ -5,10 +5,8 @@ on:
     branches:
       - main
     paths-ignore:
-      - README.md  # Không kích hoạt lại khi README.md thay đổi
-  pull_request:
-    branches:
-      - main
+      - ".github/workflows/update-readme.yml"  # Tránh kích hoạt lại khi cập nhật chính workflow này
+  workflow_dispatch:  # Cho phép chạy thủ công nếu cần
 
 jobs:
   update-readme:
@@ -27,5 +25,13 @@ jobs:
           git config --global user.name "neganok"
           git config --global user.email "hackersvn1@gmail.com"
           git add README.md .trigger
-          git commit -m "Auto update: $vn_time - Negan CSL random $number [skip ci]" || exit 0
+          git commit -m "Auto update: $vn_time - Negan CSL random $number" || exit 0
           git push "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git"
+
+      - name: Trigger Workflow Again
+        run: |
+          sleep 5  # Đợi 5 giây để đảm bảo commit được đẩy lên
+          curl -X POST -H "Accept: application/vnd.github.everest-preview+json" \
+               -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
+               https://api.github.com/repos/${{ github.repository }}/actions/workflows/update-readme.yml/dispatches \
+               -d '{"ref":"main"}'
