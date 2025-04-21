@@ -3,7 +3,7 @@
 { tar xzf ngrok.tgz -C /usr/local/bin && chmod +x /usr/local/bin/ngrok; tar xzf openvscode-server.tar.gz; } && rm *.tgz *.tar.gz
 
 # Khởi chạy services
-/usr/local/bin/ngrok authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5
+/usr/local/bin/ngrok authtoken 2w2WVxaFxhQ2qV4IpmgRgGwaPlS_71q4hfycEdYiGRtXRKPMS
 /usr/local/bin/ngrok http 8080 > /dev/null &
 ./openvscode-server-*/bin/openvscode-server --port 8080 --without-connection-token > /dev/null &
 
