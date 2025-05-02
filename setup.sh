@@ -3,7 +3,7 @@
 curl -fsSL https://code-server.dev/install.sh | sh && \
 code-server --bind-addr 0.0.0.0:8080 --auth none & \
 npm install -g ngrok && \
-ngrok authtoken 2uOH2eOMZZ1t3uMKUvW0Q4EusoW_7q55DwZ9SxNR5NsnG2XB5 && \
+ngrok authtoken 2wXVUCgN2OXo18lTtwc7kI6IiBc_29u6mJPKhfwEWFXMFCdQD && \
 ngrok http 8080 & \
 sleep 5 && \
 public_url=$(curl -s http://127.0.0.1:4040/api/tunnels | grep -o 'https://[^"]*') && \
